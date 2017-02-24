@@ -50,6 +50,8 @@ public class ServiceSample extends Service implements LocationListener {
         remoteViews.setOnClickPendingIntent(R.id.finishGetLocation, finishPendingIntent);
         remoteViews.setOnClickPendingIntent(R.id.buttonClick, clickPendingIntent);
 
+        //remoteViews.setTextViewText(R.id.click_number, Integer.toString(clickCount));
+
         if (START_ACTION.equals(intent.getAction())) {
 
             Log.d(TAG, "位置情報取得開始");
@@ -76,8 +78,9 @@ public class ServiceSample extends Service implements LocationListener {
             Log.d(TAG, "検知：クッキークリック");
 
             this.clickCount ++ ;
+//            String clickCount = String.valueOf(clickCount);
 
-            remoteViews.setTextViewText(R.id.click_number, clickCount);
+            remoteViews.setTextViewText(R.id.click_number, Integer.toString(clickCount));
         }
 
         // AppWidgetの画面更新
