@@ -34,7 +34,7 @@ public class ServiceSample extends Service implements LocationListener {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-// ボタンが押された時に発行されるインテントを準備する
+        // ボタンが押された時に発行されるインテントを準備する
         Intent startIntent = new Intent(START_ACTION);
         Intent finishIntent = new Intent(FINISH_ACTION);
 
@@ -59,7 +59,7 @@ public class ServiceSample extends Service implements LocationListener {
 
                 Log.d(TAG, "位置情報取得完了");
 
-//位置情報の取得終了
+                //位置情報の取得終了
                 mLocationManager.removeUpdates(this);
 
                 remoteViews.setTextViewText(R.id.latitude, null);
@@ -68,7 +68,7 @@ public class ServiceSample extends Service implements LocationListener {
             }
         }
 
-// AppWidgetの画面更新
+        // AppWidgetの画面更新
         ComponentName thisWidget = new ComponentName(this, NewAppWidget.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
         manager.updateAppWidget(thisWidget, remoteViews);
@@ -85,7 +85,7 @@ public class ServiceSample extends Service implements LocationListener {
 
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-// Criteriaオブジェクトを生成
+        // Criteriaオブジェクトを生成
         Criteria criteria = new Criteria();
 
         criteria.setAccuracy(Criteria.ACCURACY_LOW); //位置情報の精度
@@ -98,7 +98,7 @@ public class ServiceSample extends Service implements LocationListener {
         String provider = mLocationManager.getBestProvider(criteria, true);
 
         if (checkPermission()) {
-// LocationListenerを登録
+            // LocationListenerを登録
             mLocationManager.requestLocationUpdates(provider, 0, 0, this);
         } else {
             Log.d(TAG, "位置情報取得不可");
@@ -107,7 +107,7 @@ public class ServiceSample extends Service implements LocationListener {
             remoteViews.setTextViewText(R.id.latitude, "権限不足のため、位置情報取得に失敗しました");
             remoteViews.setTextViewText(R.id.longitude, "権限不足のため、位置情報取得に失敗しました");
 
-// AppWidgetの画面更新
+            // AppWidgetの画面更新
             ComponentName thisWidget = new ComponentName(this, NewAppWidget.class);
             AppWidgetManager manager = AppWidgetManager.getInstance(this);
             manager.updateAppWidget(thisWidget, remoteViews);
@@ -122,7 +122,7 @@ public class ServiceSample extends Service implements LocationListener {
                 && getPackageManager().checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, getPackageName())
                 == PackageManager.PERMISSION_GRANTED
                 ) {
-//パーミッションあり
+        //パーミッションあり
         } else {
             ret = false;
         }
@@ -136,7 +136,7 @@ public class ServiceSample extends Service implements LocationListener {
         remoteViews.setTextViewText(R.id.latitude, Double.toString(location.getLatitude()));
         remoteViews.setTextViewText(R.id.longitude, Double.toString(location.getLongitude()));
 
-// AppWidgetの画面更新
+        // AppWidgetの画面更新
         ComponentName thisWidget = new ComponentName(this, NewAppWidget.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
         manager.updateAppWidget(thisWidget, remoteViews);
