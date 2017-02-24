@@ -28,6 +28,8 @@ public class ServiceSample extends Service implements LocationListener {
 
     private final String START_ACTION = "START_ACTION";
     private final String FINISH_ACTION = "FINISH_ACTION";
+    private final String CLICK_ACTION = "CLICK_ACTION";
+    public static int clickCount = 0;
 
     private LocationManager mLocationManager;
 
@@ -37,13 +39,16 @@ public class ServiceSample extends Service implements LocationListener {
         // ボタンが押された時に発行されるインテントを準備する
         Intent startIntent = new Intent(START_ACTION);
         Intent finishIntent = new Intent(FINISH_ACTION);
+        Intent countUpIntent = new Intent(CLICK_ACTION);
 
         PendingIntent startPendingIntent = PendingIntent.getService(this, 0, startIntent, 0);
         PendingIntent finishPendingIntent = PendingIntent.getService(this, 0, finishIntent, 0);
+        PendingIntent clickPendingIntent = PendingIntent.getService(this, 0, countUpIntent, 0);
 
         RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.new_app_widget);
         remoteViews.setOnClickPendingIntent(R.id.startGetLocation, startPendingIntent);
         remoteViews.setOnClickPendingIntent(R.id.finishGetLocation, finishPendingIntent);
+        remoteViews.setOnClickPendingIntent(R.id.buttonClick, clickPendingIntent);
 
         if (START_ACTION.equals(intent.getAction())) {
 
@@ -66,6 +71,13 @@ public class ServiceSample extends Service implements LocationListener {
                 remoteViews.setTextViewText(R.id.longitude, null);
 
             }
+        }else if (CLICK_ACTION.equals(intent.getAction())){
+
+            Log.d(TAG, "検知：クッキークリック");
+
+            this.clickCount ++ ;
+
+            remoteViews.setTextViewText(R.id.click_number, clickCount);
         }
 
         // AppWidgetの画面更新
