@@ -81,10 +81,12 @@
             android:textColor="#ffffffff"
             android:textSize="16dp" />
     </LinearLayout>
+
     <Button
         android:id="@+id/buttonClick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="クリックせよ"
         android:textColor="#FF222222" />
+
 </LinearLayout>

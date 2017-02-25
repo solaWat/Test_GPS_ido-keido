@@ -29,6 +29,7 @@ public class ServiceSample extends Service implements LocationListener {
     private final String START_ACTION = "START_ACTION";
     private final String FINISH_ACTION = "FINISH_ACTION";
     private final String CLICK_ACTION = "CLICK_ACTION";
+
     public static int clickCount = 0;
 
     private LocationManager mLocationManager;
@@ -73,7 +74,7 @@ public class ServiceSample extends Service implements LocationListener {
                 remoteViews.setTextViewText(R.id.longitude, null);
 
             }
-        }else if (CLICK_ACTION.equals(intent.getAction())){
+        } else if (CLICK_ACTION.equals(intent.getAction())) {
 
             Log.d(TAG, "検知：クッキークリック");
 
