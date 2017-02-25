@@ -28,6 +28,7 @@
             <intent-filter>
                 <action android:name="START_ACTION" />
                 <action android:name="FINISH_ACTION" />
+                <action android:name="CLICK_ACTION" />
             </intent-filter>
         </service>
     </application>
